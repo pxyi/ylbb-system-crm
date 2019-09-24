@@ -29,7 +29,7 @@
       </template>
     </QueryComponent>
 
-    <TableComponent ref="table" url="/myClue/getNoVisitList">
+    <TableComponent ref="table" url="/myClue/getNoVisitList" :default="{ visitId: activityInfo.id }">
       <el-table-column label="负责销售" prop="tmkName" width="80"></el-table-column>
       <el-table-column label="姓名" prop="memberName" width="80"></el-table-column>
       <el-table-column label="手机号" prop="mobilePhone" width="120"></el-table-column>
