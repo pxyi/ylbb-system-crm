@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :inline="true">
-      <el-form-item label="用户身份:" v-if="activity.havaCard"><el-tag>{{ activity.havaCard }}</el-tag></el-form-item>
+      <el-form-item label="用户身份:" v-if="activity.havaCard"><el-tag>{{ activity.havaCard ? '会员' : '非会员' }}</el-tag></el-form-item>
       <template v-if="activity.contractStatus">
         <el-form-item label="门店类型:" v-for="i in activity.contractStatus" :key="i">
           <el-tag>{{ i == 0 ? '正常' : i == 1 ? '合同到期' : i == 2 ? '解约': '转店中' }}</el-tag>
