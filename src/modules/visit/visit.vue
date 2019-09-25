@@ -15,14 +15,14 @@
             <el-tag>{{ i == 0 ? '正常' : i == 1 ? '合同到期' : i == 2 ? '解约': '转店中' }}</el-tag>
           </el-form-item>
         </template>
-        <el-form-item label="所属省份" v-if="activityInfo.provinceLists && activityInfo.provinceLists.length">
-          <el-tag v-for="item in activityInfo.provinceLists" :key="item.code">{{ item.name }}</el-tag>
+        <el-form-item label="所属省份:" v-if="activity.provinceNameList && activity.provinceNameList.length">
+          <el-tag v-for="item in activity.provinceNameList" :key="item">{{ item }}</el-tag>
         </el-form-item>
-        <el-form-item label="所属城市" v-if="activityInfo.cityLists && activityInfo.cityLists.length">
-          <el-tag v-for="item in activityInfo.cityLists" :key="item.code">{{ item.name }}</el-tag>
+        <el-form-item label="所属城市:" v-if="activity.cityNameList && activity.cityNameList.length">
+          <el-tag v-for="item in activity.cityNameList" :key="item">{{ item }}</el-tag>
         </el-form-item>
-        <el-form-item label="所属门店" v-if="activityInfo.shopLists && activityInfo.shopLists.length">
-          <el-tag v-for="item in activityInfo.shopLists" :key="item.code">{{ item.shopName }}</el-tag>
+        <el-form-item label="所属门店:" v-if="activity.storeNameList && activity.storeNameList.length">
+          <el-tag v-for="item in activity.storeNameList" :key="item">{{ item }}</el-tag>
         </el-form-item>
       </el-form>
     </el-card>

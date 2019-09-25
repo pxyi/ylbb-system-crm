@@ -69,7 +69,7 @@ export default {
           label: '年龄段',
           type: 'B',
           keys: ['bStart', 'bEnd'],
-          after: '个月之内'
+          after: '个年之内'
         },
         {
           label: '所属门店',

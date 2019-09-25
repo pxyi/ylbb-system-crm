@@ -57,7 +57,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="所属城市门店" prop="cityShop">
-            <el-cascader v-model="formGroup.cityShop" placeholder="请选择所属城市门店" :props="props" collapse-tags filterable clearable></el-cascader>
+            <el-cascader v-model="formGroup.cityShop" placeholder="请选择所属城市门店" :props="props" collapse-tags filterable clearable ref="cascader"></el-cascader>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -116,6 +116,7 @@ export default {
         lazy: true,
         multiple: true,
         checkStrictly: true,
+        emitPath: false,
         lazyLoad (node, resolve) {
           const { level } = node;
           if (level === 0) {
@@ -148,7 +149,29 @@ export default {
           this.formGroup.city = city;
           this.formGroup.storeList = storeList.join(',');
           delete this.formGroup.cityShop;
-          let params = Object.assign( Object.assign({}, this.formGroup), { queryCriteria: Object.assign({}, this.formGroup) } );
+
+          let provinceNameList = [],
+              cityNameList = [],
+              storeNameList = [];
+          let checkedNodes = this.$refs.cascader.getCheckedNodes();
+          checkedNodes.map(node => {
+            if (node.level == 1) {
+              provinceNameList.push(node.label);
+            } else if (node.level == 2) {
+              cityNameList.push(node.label);
+              provinceNameList.push(node.parent.label);
+            } else {
+              storeNameList.push(node.label);
+              cityNameList.push(node.parent.label);
+              provinceNameList.push(node.parent.parent.label);
+            }
+          })
+
+          let params = Object.assign( Object.assign({}, this.formGroup), { queryCriteria: Object.assign({
+            provinceNameList: Array.from(new Set(provinceNameList)),
+            cityNameList: Array.from(new Set(cityNameList)),
+            storeNameList: Array.from(new Set(storeNameList))
+          }, this.formGroup) } );
           
           this.$post('/store/listMemberNoPage', { paramJson: JSON.stringify(params) }, {
             tip: true,

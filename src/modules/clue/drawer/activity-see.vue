@@ -2,19 +2,20 @@
   <div>
     <el-form :inline="true">
       <el-form-item label="用户身份:" v-if="activity.havaCard"><el-tag>{{ activity.havaCard ? '会员' : '非会员' }}</el-tag></el-form-item>
-      <template v-if="activity.contractStatus">
+      <el-form-item label="性别:" v-if="activity.sex"><el-tag>{{ activity.sex == 1 ? '男' : '女' }}</el-tag></el-form-item>
+      <template v-if="activity.contractStatus || activity.contractStatus > -1">
         <el-form-item label="门店类型:" v-for="i in activity.contractStatus" :key="i">
           <el-tag>{{ i == 0 ? '正常' : i == 1 ? '合同到期' : i == 2 ? '解约': '转店中' }}</el-tag>
         </el-form-item>
       </template>
-      <el-form-item label="所属省份:" v-if="activity.provinceLists && activity.provinceLists.length">
-        <el-tag v-for="item in activity.provinceLists" :key="item.code">{{ item.name }}</el-tag>
+      <el-form-item label="所属省份:" v-if="activity.provinceNameList && activity.provinceNameList.length">
+        <el-tag v-for="item in activity.provinceNameList" :key="item">{{ item }}</el-tag>
       </el-form-item>
-      <el-form-item label="所属城市:" v-if="activity.cityLists && activity.cityLists.length">
-        <el-tag v-for="item in activity.cityLists" :key="item.code">{{ item.name }}</el-tag>
+      <el-form-item label="所属城市:" v-if="activity.cityNameList && activity.cityNameList.length">
+        <el-tag v-for="item in activity.cityNameList" :key="item">{{ item }}</el-tag>
       </el-form-item>
-      <el-form-item label="所属门店:" v-if="activity.shopLists && activity.shopLists.length">
-        <el-tag v-for="item in activity.shopLists" :key="item.code">{{ item.shopName }}</el-tag>
+      <el-form-item label="所属门店:" v-if="activity.storeNameList && activity.storeNameList.length">
+        <el-tag v-for="item in activity.storeNameList" :key="item">{{ item }}</el-tag>
       </el-form-item>
       <el-form-item label="总数量:">{{ activityInfo.totalMemberCount }}</el-form-item>
       <el-form-item label="待回访:">{{ activityInfo.noReturnVisitCount }}</el-form-item>
@@ -33,16 +34,7 @@
       <el-table-column label="负责销售" prop="tmkName" width="80"></el-table-column>
       <el-table-column label="姓名" prop="memberName" width="80"></el-table-column>
       <el-table-column label="手机号" prop="mobilePhone" width="120"></el-table-column>
-      <el-table-column label="状态" width="80">
-        <template v-slot="scope">
-          {{ scope.row.memberVisitStatusInfo == 0 ? '未回访' : 
-             scope.row.memberVisitStatusInfo == 1 ? '未接通' : 
-             scope.row.memberVisitStatusInfo == 2 ? '考虑中' : 
-             scope.row.memberVisitStatusInfo == 3 ? '无意向' : 
-             scope.row.memberVisitStatusInfo == 4 ? '有意向' : 
-             scope.row.memberVisitStatusInfo == 5 ? '已到店' : '未分配' }}
-        </template>
-      </el-table-column>
+      <el-table-column label="状态" prop="memberVisitStatusInfo" width="80"></el-table-column>
       <el-table-column label="活动名称" prop="visitName"></el-table-column>
       <el-table-column label="宝宝类型" prop="babyNumber">
         <template v-slot="scope">{{ scope.row.babyNumber + '胞胎' }}</template>

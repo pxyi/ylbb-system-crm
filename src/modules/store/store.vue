@@ -3,17 +3,23 @@
     <QueryComponent :nodes="nodes" @submit="$refs.table.request($event)" />
 
     <TableComponent url="/store/listStore" ref="table">
-      <el-table-column label="门店名称" prop="shopName"></el-table-column>
+      <el-table-column label="门店名称" prop="shopName" width="130"></el-table-column>
       <el-table-column label="品牌名称" prop="shopBrand"></el-table-column>
       <el-table-column label="所在城市" prop="city"></el-table-column>
       <el-table-column label="所在区域" prop="area"></el-table-column>
-      <el-table-column label="门店状态" prop="contractStatus"></el-table-column>
-      <el-table-column label="门店类型" prop="tong"></el-table-column>
-      <el-table-column label="会员总数" prop="membership" sortable></el-table-column>
-      <el-table-column label="有效会员数" prop="effectiveMembership" sortable></el-table-column>  
-      <el-table-column label="通卡会员数" prop="tongMembership" sortable></el-table-column>   
-      <el-table-column label="APP安装量" prop="mountNumber" sortable></el-table-column>  
-      <el-table-column label="操作" fixed="right">
+      <el-table-column label="门店状态" prop="contractStatus">
+        <template v-slot="scope">
+          {{ scope.row.contractStatus == 0 ? '正常' : scope.row.contractStatus == 1 ? '合同到期' : scope.row.contractStatus == 2 ? '解约': '转店中' }}
+        </template>
+      </el-table-column>
+      <el-table-column label="门店类型" prop="tong">
+        <template v-slot="scope">{{ scope.row.tong ? '通卡店' : '非通卡店' }}</template>
+      </el-table-column>
+      <el-table-column label="会员总数" prop="membership" sortable width="100"></el-table-column>
+      <el-table-column label="有效会员数" prop="effectiveMembership" sortable width="110"></el-table-column>  
+      <el-table-column label="通卡会员数" prop="tongMembership" sortable width="110"></el-table-column>   
+      <el-table-column label="APP安装量" prop="mountNumber" sortable width="110"></el-table-column>  
+      <el-table-column label="操作" fixed="right" width="60" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="previewId = scope.row.id; showDetail = true">查看</el-button>
         </template>

@@ -20,7 +20,7 @@
       <el-table-column label="跟进详情" prop="content"></el-table-column>
       <el-table-column label="跟进状态" prop="state"></el-table-column>
       <el-table-column label="跟进人" prop="followPerson"></el-table-column>
-      <el-table-column label="跟进时间" prop="createTime"></el-table-column>
+      <el-table-column label="跟进时间" prop="createTimeStr"></el-table-column>
       <el-table-column label="跟进次数" prop="times"></el-table-column>
     </TableComponent>
   </div>
