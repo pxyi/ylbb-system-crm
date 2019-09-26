@@ -4,7 +4,7 @@
       <slot></slot>
     </el-table>
 
-    <el-pagination v-if="hasPage" background layout="total, sizes, prev, pager, next" :hide-on-single-page="true" @current-change="currentChange($event)" @size-change="sizeChange($event)" :total="total"></el-pagination>
+    <el-pagination v-if="hasPage" background layout="total, sizes, prev, pager, next" :current-page.sync="pageNum" :hide-on-single-page="true" @current-change="currentChange($event)" @size-change="sizeChange($event)" :total="total"></el-pagination>
   </div>
 </template>
 
@@ -84,6 +84,7 @@ export default {
         paramJson: JSON.stringify(Object.assign(paramJson, this.initParams))
       } : Object.assign(paramJson, this.initParams) )).then(res => {
         this.loading = false;
+        this.pageNum = this.pageNum;
         try {
           if (res.code == 1000) {
             if (this.hasPage) {

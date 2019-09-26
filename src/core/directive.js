@@ -10,7 +10,7 @@ export default (Vue) => {
       }
     },
     unbind() {
-      console.log('unbind')
+      // console.log('unbind')
     }
   })
 }

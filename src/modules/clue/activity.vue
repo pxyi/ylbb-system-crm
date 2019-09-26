@@ -28,7 +28,7 @@
     <el-dialog title="线索分配" :visible.sync="showDistributionClues" width="320px">
       <el-form :model="formGroup" :rules="rules" ref="formGroup">
         <el-form-item prop="linkmanIds">
-          <el-select v-model="formGroup.linkmanIds" multiple placeholder="请选择分配人员" collapse-tags clearable @change="linkmanIdsChange">
+          <el-select v-model="formGroup.linkmanIds" multiple placeholder="请选择分配人员" clearable @change="linkmanIdsChange">
             <el-option v-for="option in personnelList" :key="option.id" :label="option.name" :value="option.id"></el-option>
           </el-select>
         </el-form-item>

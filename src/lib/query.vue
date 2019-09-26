@@ -80,7 +80,7 @@ export default {
   data() {
     let formGroup = {};
     this.nodes.map((n, i) => {
-      if (n.type === 'between' || n.type === 'N') {
+      if (n.type === 'between' || n.type === 'B') {
         formGroup[n.keys[0]] = n.default && n.default[0] ? n.default[0] : null;
         formGroup[n.keys[1]] = n.default && n.default[1] ? n.default[1] : null;
       } else {

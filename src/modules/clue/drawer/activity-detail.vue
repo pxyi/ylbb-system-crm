@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="活动类型" prop="type">
-            <el-select v-model="formGroup.type" placeholder="请选择活动类型" clearable>
+            <el-select v-model="formGroup.type" placeholder="请选择活动类型" multiple clearable>
               <el-option label="婴儿" :value="1"></el-option>
               <el-option label="幼儿" :value="2"></el-option>
               <el-option label="少儿" :value="3"></el-option>
@@ -37,7 +37,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="门店类型" prop="contractStatus">
-            <el-select v-model="formGroup.contractStatus" placeholder="请选择门店类型" clearable>
+            <el-select v-model="formGroup.contractStatus" placeholder="请选择门店类型" multiple clearable>
               <el-option label="正常" :value="0"></el-option>
               <el-option label="合同到期" :value="1"></el-option>
               <el-option label="解约" :value="2"></el-option>
@@ -116,7 +116,6 @@ export default {
         lazy: true,
         multiple: true,
         checkStrictly: true,
-        emitPath: false,
         lazyLoad (node, resolve) {
           const { level } = node;
           if (level === 0) {
@@ -135,6 +134,7 @@ export default {
       this.$refs.formGroup.validate(v => {
         if (v) {
           let { visitName, activityDesc, type, isDistribution, cityShop } = this.formGroup;
+          const formGroup = Object.assign({}, this.formGroup);
           let province = [],
               city = [],
               storeList = [];
@@ -143,17 +143,19 @@ export default {
             r[1] && city.push(r[1]);
             r[2] && storeList.push(r[2]);
           });
+
           province = Array.from(new Set(province)).join(',');
           city = Array.from(new Set(city)).join(',');
-          this.formGroup.province = province;
-          this.formGroup.city = city;
-          this.formGroup.storeList = storeList.join(',');
-          delete this.formGroup.cityShop;
+          formGroup.province = province;
+          formGroup.city = city;
+          formGroup.storeList = storeList.join(',');
+          delete formGroup.cityShop;
 
           let provinceNameList = [],
               cityNameList = [],
               storeNameList = [];
           let checkedNodes = this.$refs.cascader.getCheckedNodes();
+
           checkedNodes.map(node => {
             if (node.level == 1) {
               provinceNameList.push(node.label);
@@ -166,13 +168,14 @@ export default {
               provinceNameList.push(node.parent.parent.label);
             }
           })
-
-          let params = Object.assign( Object.assign({}, this.formGroup), { queryCriteria: Object.assign({
+          Array.isArray(formGroup.contractStatus) && ( formGroup.contractStatus = formGroup.contractStatus.join(',') );
+          Array.isArray(formGroup.type) && ( formGroup.type = formGroup.type.join(',') );
+          let params = Object.assign( { queryCriteria: Object.assign({
             provinceNameList: Array.from(new Set(provinceNameList)),
             cityNameList: Array.from(new Set(cityNameList)),
             storeNameList: Array.from(new Set(storeNameList))
-          }, this.formGroup) } );
-          
+          }, formGroup) }, Object.assign({}, formGroup) );
+
           this.$post('/store/listMemberNoPage', { paramJson: JSON.stringify(params) }, {
             tip: true,
             drawer: true,

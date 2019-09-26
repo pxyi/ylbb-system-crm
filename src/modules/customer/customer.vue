@@ -66,10 +66,16 @@ export default {
           options: [ { label: '空号', value: true },{ label: '正常', value: false } ]
         },
         {
-          label: '年龄段',
-          type: 'B',
-          keys: ['bStart', 'bEnd'],
-          after: '个年之内'
+          label: '最小年龄',
+          type: 'N',
+          key: 'bStart',
+          after: '岁'
+        },
+        {
+          label: '最大年龄',
+          type: 'N',
+          key: 'bEnd',
+          after: '岁'
         },
         {
           label: '所属门店',
