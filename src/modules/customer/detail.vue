@@ -17,8 +17,30 @@
       <el-col :span="8"><span>门店归属：</span><span>{{ memberInfo.shopName || '-' }}</span></el-col>
       <el-col :span="8"><span>所属社区：</span><span>{{ memberInfo.communityName || '-' }}</span></el-col>
     </el-row>
+    <template v-if="memberInfo.memberInfo">
+      <TitleComponent>会员卡信息</TitleComponent>
+      <TableComponent :dataSet="memberInfo.memberInfo">
+        <el-table-column label="会员卡类型" prop="cardTypeName"></el-table-column>
+        <el-table-column label="会员卡状态" prop="cardTypeName">
+          <template v-slot="scope">
+            {{ scope.row.recordStatus == 0 ? '未使用' : 
+               scope.row.recordStatus == 1 ? '使用中' : 
+               scope.row.recordStatus == 2 ? '即将过期' : '已过期' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="办卡时间" prop="createDate"></el-table-column>
+        <el-table-column label="失效时间" prop="expireDate"></el-table-column>
+        <el-table-column label="有效期剩余天数" prop="differenceMonth"></el-table-column>
+        <el-table-column label="剩余卡次" prop="cardTimes"></el-table-column>
+      </TableComponent>
+    </template>
+    
     <TitleComponent>标签信息</TitleComponent>
-    <div class="not-tag">暂无标签</div>
+    <div class="not-tag" v-if="!labelList.length && !visitList.length">暂无标签</div>
+    <div style="margin-bottom: 30px;">
+      <template v-if="labelList.length"><el-tag v-for="(list, fileIndex) in labelList" :key="fileIndex">{{list}}</el-tag></template>
+      <template v-if="visitList.length"><el-tag v-for="(list, fileIndex) in visitList" :key="fileIndex">{{list.visitName}}</el-tag></template>
+    </div>
 
     <el-tabs type="card">
       <el-tab-pane v-if="visitId" lazy label="跟踪记录"><TrackingRecordComponent :id="id" :visitId="visitId" /></el-tab-pane>
@@ -56,6 +78,11 @@ export default {
   },
   created() {
     this.init();
+
+    //标签信息    
+    this.axios.post('/store/memberLabelInfo', { memberId: this.id }).then(res => this.labelList = res.result || []);
+    //回访名单标签
+    this.axios.post('/visit/selectMemberVisitById', { memberId: this.id }).then(res => this.visitList = res.result.visitInfo || [])
   },
   watch: {
     id: function (e) {
@@ -64,6 +91,8 @@ export default {
   },
   data() {
     return {
+      labelList: [],
+      visitList: [],
       memberInfo: {}
     }
   },
@@ -89,5 +118,9 @@ export default {
     color: #666;
     text-indent: 12px;
     line-height: 36px;
+  }
+  div /deep/ .el-tag {
+    margin-right: 8px;
+    margin-bottom: 10px;
   }
 </style>

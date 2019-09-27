@@ -2,15 +2,19 @@
   <div>
     <QueryComponent :nodes="nodes" @submit="$refs.table.request($event)" />
 
-    <TableComponent url="/store/listMember" ref="table">
-      <el-table-column label="姓名" prop="name"></el-table-column>
+    <TableComponent url="/store/listMember" ref="table" :auto="false">
+      <el-table-column label="姓名" prop="name">
+        <template v-slot="scope"><el-button type="text" @click="previewId = scope.row.id; showDetail = true">{{ scope.row.name }}</el-button></template>
+      </el-table-column>
       <el-table-column label="手机号">
         <template v-slot="scope">
           {{ scope.row.showPhone ? scope.row.mobilePhone : '' }}
           <el-button type="text" v-if="!scope.row.showPhone" size="small" @click="$set(scope.row, 'showPhone', true)">查看</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="宝宝类型" prop="babyNumber"></el-table-column>
+      <el-table-column label="宝宝类型" prop="babyNumber">
+        <template v-slot="scope">{{ scope.row.babyNumber ? scope.row.babyNumber + '胞胎' : '-' }}</template>
+      </el-table-column>
       <el-table-column label="性别" prop="sex"></el-table-column>
       <el-table-column label="身份"><template v-slot="scope">{{ scope.row.havaCard ? '会员' : '非会员' }}</template></el-table-column>
       <el-table-column label="会员卡状态"><template v-slot="scope">{{ scope.row.cardStatus == 0 ?  '有效' : '' }}</template></el-table-column>
@@ -43,8 +47,11 @@ export default {
       nodes: [
         {
           label: '用户名称',
-          type: 'input',
           key: 'name'
+        },
+        {
+          label: '手机号',
+          key: 'mobilePhone'
         },
         {
           label: '用户身份',

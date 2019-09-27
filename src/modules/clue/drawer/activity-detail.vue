@@ -21,7 +21,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="用户身份" prop="havacard">
-            <el-select v-model="formGroup.havaCard" placeholder="请选择活动类型" clearable>
+            <el-select v-model="formGroup.havaCard" placeholder="请选择用户身份" clearable>
               <el-option label="会员" :value="1"></el-option>
               <el-option label="非会员" :value="0"></el-option>
             </el-select>
@@ -57,7 +57,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="所属城市门店" prop="cityShop">
-            <el-cascader v-model="formGroup.cityShop" placeholder="请选择所属城市门店" :props="props" collapse-tags filterable clearable ref="cascader"></el-cascader>
+            <el-cascader v-model="formGroup.cityShop" placeholder="请选择所属城市门店" :props="props" filterable clearable ref="cascader"></el-cascader>
           </el-form-item>
         </el-col>
         <el-col :span="12">

@@ -34,9 +34,9 @@
       <el-table-column label="序号" prop="id"></el-table-column>
       <el-table-column label="活动名称" prop="name" width="140"></el-table-column>
       <el-table-column label="创建时间" prop="createTimeStr"></el-table-column>
-      <el-table-column label="未回访" prop="totalMemberCount"></el-table-column>
+      <el-table-column label="未回访" prop="noVisitCount"></el-table-column>
       <el-table-column label="已回访" prop="visitMemberCount"></el-table-column>
-      <el-table-column label="参与人数" prop="joinMemberCount"></el-table-column>
+      <el-table-column label="有意向人数" prop="joinMemberCount"></el-table-column>
       <el-table-column label="到店人数" prop="comeMemberCount"></el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">

@@ -13,7 +13,7 @@
       </el-table-column>
       <el-table-column label="总数据" prop="totalMemberCount"></el-table-column>
       <el-table-column label="已回访" prop="visitMemberCount"></el-table-column>
-      <el-table-column label="参与人数" prop="joinMemberCount"></el-table-column>
+      <el-table-column label="有意向人数" prop="joinMemberCount"></el-table-column>
       <el-table-column label="到店人数" prop="comeMemberCount"></el-table-column>
 
       <el-table-column label="操作" fixed="right" align="center">
@@ -66,7 +66,7 @@ export default {
           label: '活动状态',
           key: 'status',
           type: 'S',
-          options: [{ value: 0, label: '未分配' }, { value: 1, label: '进行中' }, { value: 2, label: '结束' }]
+          options: [{ value: 0, label: '未分配' }, { value: 1, label: '进行中' }]
         },
         {
           label: '创建时间',

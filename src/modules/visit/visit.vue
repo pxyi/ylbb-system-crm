@@ -27,12 +27,12 @@
       </el-form>
     </el-card>
 
-    <el-card v-show="activityId">
+    <!-- <el-card v-show="activityId"> -->
       <el-tabs type="card">
-        <el-tab-pane label="待回访"><StayVisitComponent :id="activityId" @preview="showDetail = true; previewId = $event"  @follow="showFollow = true; previewId = $event" /></el-tab-pane>
-        <el-tab-pane label="已回访"><AlreadyVisitComponent :id="activityId" @preview="showDetail = true; previewId = $event"  @follow="showFollow = true; previewId = $event" /></el-tab-pane>
+        <el-tab-pane label="待回访"><StayVisitComponent :id="1" @preview="showDetail = true; previewId = $event"  @follow="showFollow = true; previewId = $event" /></el-tab-pane>
+        <el-tab-pane label="已回访"><AlreadyVisitComponent :id="1" @preview="showDetail = true; previewId = $event"  @follow="showFollow = true; previewId = $event" /></el-tab-pane>
       </el-tabs>
-    </el-card>
+    <!-- </el-card> -->
 
     <el-drawer title="客户详情" size="720px" :destroy-on-close="true" :visible.sync="showDetail">
       <DetailComponent :id="previewId" />
@@ -58,8 +58,8 @@ export default {
   },
   data() {
     return {
-      activityId: null,
-      acitivityList: [],
+      activityId: 1,
+      acitivityList: [{ id: 1, name: '有奖预约回访名单'}],
       activityInfo: {},
       showDetail: false,
       showFollow: false,
@@ -72,7 +72,7 @@ export default {
     }
   },
   created() {
-    this.axios.post('/visit/selectVisitListNoCount').then(res => this.acitivityList = res.result);
+    // this.axios.post('/visit/selectVisitListNoCount').then(res => this.acitivityList = res.result);
   }
 }
 </script>
@@ -87,7 +87,7 @@ export default {
     font-weight: 400;
   }
   .el-card .el-select {
-    width: 420px;
+    width: 420px !important;
   }
   .el-form-item {
     margin-bottom: 0;

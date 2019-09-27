@@ -5,7 +5,8 @@
   "scripts": {
     "start": "vue-cli-service serve --mode dev",
     "build": "vue-cli-service build --mode prod",
-    "test": "vue-cli-service build --mode test"
+    "test": "vue-cli-service build --mode test",
+    "push-dev": "rm -rf /Users/phuhoang/test-83/ylbb-system-crm/* && mv /Users/phuhoang/Desktop/ylbb-system-crm/dist/* /Users/phuhoang/test-83/ylbb-system-crm && cd /Users/phuhoang/test-83 && git pull && git add . && git commit -m '-' && git push"
   },
   "dependencies": {
     "axios": "^0.19.0",

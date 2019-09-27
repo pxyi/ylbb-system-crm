@@ -16,7 +16,7 @@
         </template>
 
         <template v-else-if="item.type === 'select' || item.type === 'S'">
-          <el-select v-model="formGroup[item.key]" :multiple="item.multiple" :placeholder="item.placeholder || '请选择' + item.label" @change="type === 'simple' && onSubmit()" collapse-tags clearable>
+          <el-select v-model="formGroup[item.key]" :multiple="item.multiple" :placeholder="item.placeholder || '请选择' + item.label" @change="type === 'simple' && onSubmit()" clearable>
             <el-option v-for="option in item.options" :key="option[item.valueKey || 'value']" :label="option[item.labelKey || 'label']" :value="option[item.valueKey || 'value']"></el-option>
           </el-select>
         </template>
@@ -39,7 +39,7 @@
         </template>
 
         <template v-else-if="item.type === 'cascader' || item.type === 'C'">
-          <el-cascader v-model="formGroup[item.keys.join()]" :placeholder="item.placeholder || '请选择' + item.label" :props="item.props" collapse-tags filterable clearable @change="type === 'simple' && onSubmit()"></el-cascader>
+          <el-cascader v-model="formGroup[item.keys.join()]" :placeholder="item.placeholder || '请选择' + item.label" :props="item.props" filterable clearable @change="type === 'simple' && onSubmit()"></el-cascader>
         </template>
 
         <template v-else>
@@ -138,13 +138,16 @@ export default {
 </script>
 
 <style lang="less">
+@inputWith: 240px;
 .query-content {
   padding: 16px 16px 0;
   background: #fff;
   margin-bottom: 16px;
   .el-input__inner,
   .el-date-editor--daterange.el-input__inner,
-  .between-group { width: 300px; }
+  .between-group { 
+    width: @inputWith; 
+  }
   .between-group {
     display: flex;
     .el-input {
@@ -198,9 +201,10 @@ export default {
     }
   }
   .el-input.input-number {
-    width: 300px;
+    width: @inputWith;
     display: flex;
     input {
+      width: 0;
       flex: 1;
       display: block;
     }

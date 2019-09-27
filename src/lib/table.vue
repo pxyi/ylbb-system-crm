@@ -70,7 +70,7 @@ export default {
       this.request();
     },
     request(params) {
-      if (this.loading) { return; }
+      if (this.loading || !this.url) { return; }
       this.loading = true;
       if(params) {
         this.pageNum = 1;

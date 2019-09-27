@@ -20,9 +20,11 @@ export default (Vue) => {
 
   /* ----------------- 返回结果拦截, 如未登录直接跳转到登录页 ----------------- */
   axios.interceptors.response.use(res => {
+    if (res.data.code == 3000) {
+      window.location.href = process.env.VUE_APP_LOGIN_ADDRESS;
+    }
     return res.data;
   }, err => {
-    console.log(err)
     ElementUI.Message({ type: 'error', message: '网络错误，请刷新重试' });
     return err;
   });
